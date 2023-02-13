@@ -16,7 +16,6 @@
         android:layout_row="0"
         android:layout_column="2"
         android:layout_gravity="top"
-        android:text="@string/hint"
         android:backgroundTint="@color/buttons"
         android:onClick="onHintClick"
         />

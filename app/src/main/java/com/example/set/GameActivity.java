@@ -35,6 +35,7 @@ public class GameActivity extends AppCompatActivity {
     Set<Integer> chosenCards = new HashSet<>();
     int foundSetsCount;
     int[] hintCard = new int[2];
+    int hintCount = 3;
 
 
 
@@ -50,6 +51,7 @@ public class GameActivity extends AppCompatActivity {
         onTable.clear();
         foundSetsCount=0;
         Button hintButton = findViewById(R.id.buttonHint);
+        hintButton.setText("Hint("+hintCount+")");
         hintButton.setVisibility(View.GONE);
         Button shuffleButton = findViewById(R.id.buttonShuffle);
         shuffleButton.setVisibility(View.GONE);
@@ -251,8 +253,12 @@ public class GameActivity extends AppCompatActivity {
         Button button = findViewById(R.id.buttonCheckSet);
         if(checkSetsOnTable()){
             button.setText("there is a set");
-            Button hintButton = findViewById(R.id.buttonHint);
-            hintButton.setVisibility(View.VISIBLE);
+            if (hintCount>0){
+                Button hintButton = findViewById(R.id.buttonHint);
+                hintButton.setText("Hint("+hintCount+")");
+                hintButton.setVisibility(View.VISIBLE);
+            }
+
 
         }else {
             button.setText("no sets");
@@ -315,6 +321,7 @@ public class GameActivity extends AppCompatActivity {
         showCardsOnTable();
         ImageButtonClick(hintCard[0]);
         ImageButtonClick(hintCard[1]);
+        hintCount-=1;
 
 
     }
