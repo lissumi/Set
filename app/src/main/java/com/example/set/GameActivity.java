@@ -75,7 +75,6 @@ public class GameActivity extends AppCompatActivity {
         Button shuffleButton = findViewById(R.id.buttonShuffle);
         shuffleButton.setVisibility(View.GONE);
         for (int i=1; i<=12; i++){
-
                 String imageButtonName = "imageButton"+ i;
                 int buttonID = getResources().getIdentifier(imageButtonName, "id",getPackageName());
                 ImageButton cardButton = findViewById(buttonID);
@@ -232,19 +231,17 @@ public class GameActivity extends AppCompatActivity {
     public void onShuffleClick(View view) {
         onTable.clear();
         chosenCards.clear();
-        int i = 1;
+        int imageButtonIndex = 1;
         List<Integer> deckList = new ArrayList<>(inGameDeck);
         Random rand = new Random();
-        while (i<=12 && i <= inGameDeck.size()){
+        while (imageButtonIndex<=12 && imageButtonIndex <= inGameDeck.size()){
             int index = rand.nextInt(deckList.size());
             int cardIndex = deckList.get(index);
-            onTable.put(i,cardIndex);
+            onTable.put(imageButtonIndex,cardIndex);
             deckList.remove(index);
-            i++;
+            imageButtonIndex++;
         }
-
         showCardsOnTable();
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -257,8 +254,6 @@ public class GameActivity extends AppCompatActivity {
                 hintButton.setText(getString(R.string.hint_bracket) + hintCount + getString(R.string.bracket));
                 hintButton.setVisibility(View.VISIBLE);
             }
-
-
         }else {
             button.setText(R.string.no_sets);
             Button shuffleButton = findViewById(R.id.buttonShuffle);
