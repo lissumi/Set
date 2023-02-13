@@ -1,10 +1,12 @@
 package com.example.set;
 
+import androidx.annotation.NonNull;
+
 public class Card {
-    private int cardColor;
-    private int numberOfShapes;
-    private int shading;
-    private int shape;
+    private final int cardColor;
+    private final int numberOfShapes;
+    private final int shading;
+    private final int shape;
     public final static Card[] deck=formDeck();
 
     private static Card[] formDeck() {
@@ -31,6 +33,7 @@ public class Card {
         this.shape = shape;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return  cardColor +""+ numberOfShapes + shading + shape;
