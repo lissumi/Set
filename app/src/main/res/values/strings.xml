@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Set</string>
+    <string name="new_game">New Game</string>
+    <string name="resume_game">Resume Game</string>
+    <string name="how_to_play">How to play</string>
+    <string name="rules">Rules</string>
+    <string name="check_set">Check Set</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="Deck">Deck: 81 cards.</string>
+    <string name="Found_Sets">Found Sets: 0</string>
+    <string name="Save_Finish">Save result and finish</string>
+    <string name="hint">Hint</string>
+</resources>

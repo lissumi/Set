@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:padding="100dp">
+
+
+    <Button
+        android:id="@+id/newGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onNewGameClick"
+        android:text="@string/new_game"
+        android:backgroundTint="@color/buttons"/>
+
+    <Button
+        android:id="@+id/resumeGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onResumeClick"
+        android:text="@string/resume_game"
+        android:backgroundTint="@color/buttons"/>
+
+    <Button
+        android:id="@+id/howToPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onHowToPlayClick"
+        android:text="@string/how_to_play"
+        android:backgroundTint="@color/buttons"/>
+</LinearLayout>
