@@ -10,4 +10,12 @@
     <string name="Found_Sets">Found Sets: 0</string>
     <string name="Save_Finish">Save result and finish</string>
     <string name="hint">Hint</string>
+    <string name="hint_bracket">Hint(</string>
+    <string name="bracket">)</string>
+    <string name="there_is_a_set">there is a set</string>
+    <string name="no_sets">no sets</string>
+    <string name="found_colon">\"Found: \"</string>
+    <string name="sets_dot">\" sets.\"</string>
+    <string name="deck_colon">\"Deck: \"</string>
+    <string name="cards_dot">\" cards.\"</string>
 </resources>

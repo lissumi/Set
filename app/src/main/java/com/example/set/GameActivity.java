@@ -35,6 +35,7 @@ public class GameActivity extends AppCompatActivity {
     Set<Integer> chosenCards = new HashSet<>();
     int foundSetsCount;
     int[] hintCard = new int[2];
+    int hintCount;
 
 
 
@@ -46,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void newGame() {
+        hintCount=3;
         inGameDeck.clear();
         onTable.clear();
         foundSetsCount=0;
@@ -66,13 +68,13 @@ public class GameActivity extends AppCompatActivity {
         showCardsOnTable();
     }
 
+    @SuppressLint("SetTextI18n")
     private void showCardsOnTable() {
         Button hintButton = findViewById(R.id.buttonHint);
         hintButton.setVisibility(View.GONE);
         Button shuffleButton = findViewById(R.id.buttonShuffle);
         shuffleButton.setVisibility(View.GONE);
         for (int i=1; i<=12; i++){
-
                 String imageButtonName = "imageButton"+ i;
                 int buttonID = getResources().getIdentifier(imageButtonName, "id",getPackageName());
                 ImageButton cardButton = findViewById(buttonID);
@@ -90,11 +92,11 @@ public class GameActivity extends AppCompatActivity {
 
         }
         TextView textDeck = findViewById(R.id.textViewDeck);
-        textDeck.setText("Deck: "+inGameDeck.size()+ " cards.");
+        textDeck.setText(getString(R.string.deck_colon)+inGameDeck.size()+ getString(R.string.cards_dot));
         TextView textSet = findViewById(R.id.textFoundSets);
-        textSet.setText("Found: " + foundSetsCount + " sets." );
+        textSet.setText(getString(R.string.found_colon) + foundSetsCount + getString(R.string.sets_dot) );
         Button button = findViewById(R.id.buttonCheckSet);
-        button.setText("Check set");
+        button.setText(R.string.check_set);
     }
 
 
@@ -153,12 +155,9 @@ public class GameActivity extends AppCompatActivity {
         }
 
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                chosenCards.clear();
-                showCardsOnTable();
-            }
+        handler.postDelayed(() -> {
+            chosenCards.clear();
+            showCardsOnTable();
         }, 2000);
 
 
@@ -232,30 +231,31 @@ public class GameActivity extends AppCompatActivity {
     public void onShuffleClick(View view) {
         onTable.clear();
         chosenCards.clear();
-        int i = 1;
+        int imageButtonIndex = 1;
         List<Integer> deckList = new ArrayList<>(inGameDeck);
         Random rand = new Random();
-        while (i<=12 && i <= inGameDeck.size()){
+        while (imageButtonIndex<=12 && imageButtonIndex <= inGameDeck.size()){
             int index = rand.nextInt(deckList.size());
             int cardIndex = deckList.get(index);
-            onTable.put(i,cardIndex);
+            onTable.put(imageButtonIndex,cardIndex);
             deckList.remove(index);
-            i++;
+            imageButtonIndex++;
         }
-
         showCardsOnTable();
-
     }
 
+    @SuppressLint("SetTextI18n")
     public void onCheckSetClick(View view) {
         Button button = findViewById(R.id.buttonCheckSet);
         if(checkSetsOnTable()){
-            button.setText("there is a set");
-            Button hintButton = findViewById(R.id.buttonHint);
-            hintButton.setVisibility(View.VISIBLE);
-
+            button.setText(R.string.there_is_a_set);
+            if (hintCount>0){
+                Button hintButton = findViewById(R.id.buttonHint);
+                hintButton.setText(getString(R.string.hint_bracket) + hintCount + getString(R.string.bracket));
+                hintButton.setVisibility(View.VISIBLE);
+            }
         }else {
-            button.setText("no sets");
+            button.setText(R.string.no_sets);
             Button shuffleButton = findViewById(R.id.buttonShuffle);
             shuffleButton.setVisibility(View.VISIBLE);
         }
@@ -315,6 +315,7 @@ public class GameActivity extends AppCompatActivity {
         showCardsOnTable();
         ImageButtonClick(hintCard[0]);
         ImageButtonClick(hintCard[1]);
+        hintCount-=1;
 
 
     }
