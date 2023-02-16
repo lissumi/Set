@@ -23,5 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onHowToPlayClick(View view) {
+        Intent intent = new Intent(MainActivity.this,RulesActivity.class);
+        startActivity(intent);
     }
 }

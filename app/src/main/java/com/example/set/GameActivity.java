@@ -8,6 +8,7 @@ import static com.example.set.R.color.WrongSet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 
 import android.os.Bundle;
@@ -320,5 +321,10 @@ public class GameActivity extends AppCompatActivity {
         hintCount-=1;
 
 
+    }
+
+    public void onRulesClick(View view) {
+        Intent intent = new Intent(GameActivity.this,RulesActivity.class);
+        startActivity(intent);
     }
 }

@@ -220,7 +220,8 @@
         android:layout_column="0"
         android:layout_gravity="bottom"
         android:text="@string/rules"
-        android:backgroundTint="@color/buttons"/>
+        android:backgroundTint="@color/buttons"
+        android:onClick="onRulesClick"/>
     <Button
         android:id="@+id/buttonNewGame"
         android:layout_width="120dp"
