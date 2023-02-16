@@ -127,6 +127,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void checkIfSet() {
+        Button hintButton = findViewById(R.id.buttonHint);
+        hintButton.setVisibility(View.GONE);
         int colorSum=0, numberSum=0,shadingSum=0,shapeSum=0;
         for (int i:chosenCards){
             colorSum+=Card.deck[onTable.get(i)].getCardColor();
