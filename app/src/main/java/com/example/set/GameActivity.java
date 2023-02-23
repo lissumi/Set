@@ -14,6 +14,7 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,7 +45,50 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        setSizes();
         newGame();
+    }
+
+    private void setSizes() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        Button buttonCheckSet = findViewById(R.id.buttonCheckSet);
+        setButtonSize(buttonCheckSet,height,width);
+        Button buttonHint = findViewById(R.id.buttonHint);
+        setButtonSize(buttonHint,height,width);
+        Button buttonShuffle = findViewById(R.id.buttonShuffle);
+        setButtonSize(buttonShuffle,height,width);
+        Button buttonRules = findViewById(R.id.buttonRules);
+        setButtonSize(buttonRules,height,width);
+        Button buttonNewGame= findViewById(R.id.buttonNewGame);
+        setButtonSize(buttonNewGame,height,width);
+        for(int i=1; i<=12; i++){
+            String imageButtonName = "imageButton"+ i;
+            int buttonID = getResources().getIdentifier(imageButtonName, "id",getPackageName());
+            ImageButton cardButton = findViewById(buttonID);
+            setCardButtonSize(cardButton,height,width);
+        }
+        TextView textViewDeck = findViewById(R.id.textViewDeck);
+        textViewDeck.setTextSize((float) (height*0.0125));
+        TextView textViewSets = findViewById(R.id.textFoundSets);
+        textViewSets.setTextSize((float) (height*0.0125));
+    }
+
+    private void setCardButtonSize(ImageButton cardButton, int height, int width) {
+        android.view.ViewGroup.LayoutParams params = cardButton.getLayoutParams();
+        params.height = (int) (height*0.13);
+        params.width = (int) (width*0.3);
+        cardButton.setLayoutParams(params);
+
+    }
+
+    private void setButtonSize(Button button, int height, int width) {
+
+        button.setTextSize((int) (width/74));
+        button.setWidth((int) (width*0.28));
+        button.setHeight((int) (height*0.08));
     }
 
     private void newGame() {
