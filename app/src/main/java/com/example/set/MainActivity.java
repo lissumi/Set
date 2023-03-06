@@ -16,10 +16,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNewGameClick(View view) {
         Intent intent = new Intent(MainActivity.this,GameActivity.class);
+        intent.putExtra (GameActivity.NEW_GAME_PRESSED,true);
         startActivity(intent);
     }
 
     public void onResumeClick(View view) {
+        Intent intent = new Intent(MainActivity.this,GameActivity.class);
+        intent.putExtra (GameActivity.NEW_GAME_PRESSED,false);
+        startActivity(intent);
     }
 
     public void onHowToPlayClick(View view) {
