@@ -8,6 +8,7 @@ import static com.example.set.R.color.WrongSet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 
@@ -20,6 +21,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +37,7 @@ import java.util.Set;
 
 
 public class GameActivity extends AppCompatActivity {
+    public static final String NEW_GAME_PRESSED = "newGamePressed";
     //indexes of cards in GameDeck
     Set<Integer> inGameDeck = new HashSet<>();
     //key is number if imageButton, value is cards index
@@ -45,8 +54,48 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         setSizes();
-        newGame();
+        boolean newGamePressed = getIntent().getBooleanExtra(NEW_GAME_PRESSED,false);
+        if (newGamePressed){
+            newGame();
+        } else {
+            resumeGame();
+        }
+
+    }
+
+    private void resumeGame() {
+
+        FileInputStream fis;
+        try {
+            fis = openFileInput("saveGame");
+
+        } catch (FileNotFoundException e) {
+            newGame();
+            return;
+        }
+        InputStreamReader inputStreamReader =
+                new InputStreamReader(fis, StandardCharsets.UTF_8);
+        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+            String line = reader.readLine();
+            hintCount= Integer.parseInt(line);
+            for (int i=1; i<=12; i++){
+                line = reader.readLine();
+                int value = Integer.parseInt(line);
+                if (value!=-1)onTable.put(i,value);
+            }
+            inGameDeck.clear();
+            line = reader.readLine();
+            while (line != null) {
+                inGameDeck.add(Integer.parseInt(line));
+                line = reader.readLine();
+            }
+            foundSetsCount=(81-inGameDeck.size())/3;
+            showCardsOnTable();
+        } catch (IOException e) {
+            newGame();
+        }
     }
 
     private void setSizes() {
@@ -370,5 +419,33 @@ public class GameActivity extends AppCompatActivity {
     public void onRulesClick(View view) {
         Intent intent = new Intent(GameActivity.this,RulesActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveGame();
+    }
+
+    private void saveGame() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(hintCount).append('\n');
+        for (int i=1; i<=12; i++){
+            if (onTable.containsKey(i)){
+                stringBuilder.append(onTable.get(i).toString()).append('\n');
+            }else {
+                stringBuilder.append(onTable.get(-1).toString()).append('\n');
+            }
+
+        }
+        for (int i: inGameDeck){
+            stringBuilder.append(i).append('\n');
+        }
+        String fileContents = stringBuilder.toString();
+        try (FileOutputStream fos = openFileOutput("saveGame", Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
