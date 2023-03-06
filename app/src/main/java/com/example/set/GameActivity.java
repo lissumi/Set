@@ -434,7 +434,7 @@ public class GameActivity extends AppCompatActivity {
             if (onTable.containsKey(i)){
                 stringBuilder.append(onTable.get(i).toString()).append('\n');
             }else {
-                stringBuilder.append(onTable.get(-1).toString()).append('\n');
+                stringBuilder.append(-1).append('\n');
             }
 
         }
