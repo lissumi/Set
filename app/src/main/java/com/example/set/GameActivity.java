@@ -422,10 +422,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         saveGame();
     }
+
+
 
     private void saveGame() {
         StringBuilder stringBuilder = new StringBuilder();
